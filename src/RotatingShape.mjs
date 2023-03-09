@@ -9,19 +9,16 @@ export class RotatingShape {
         this.shape = shape.replace(/ /g, '').split(`\n`);
         this.shapeType=shape_type;
 
-        console.log("1",this.rotationIndex)
         if (rotationIndex===undefined){
             if (this.shapeType==="I"||this.shapeType==="S"||this.shapeType==="Z"){
                 this.rotationIndex=1;
             }else {
                 this.rotationIndex=4;
-                console.log("2",this.rotationIndex)
             }
         }else {
             this.rotationIndex=JSON.parse(JSON.stringify(rotationIndex));
         }
 
-        console.log("3",this.rotationIndex)
         this.rotations =  {I: ["..I..\n..I..\n..I..\n..I..\n.....", ".....\n.....\nIIII.\n.....\n....."],
         O: ".OO\n.OO\n...",
         T: [".T.\nTTT\n...", ".T.\n.TT\n.T.", "TTT\n.T.\n...", ".T.\nTT.\n.T.", ".T.\nTTT\n...", ".T.\n.TT\n.T.", "TTT\n.T.\n...", "TTT\n.T.\n...", ".T.\nTT.\n.T."],
@@ -89,7 +86,6 @@ export class RotatingShape {
     }
 
     rotateLeft2() {
-        console.log(this.shape)
         if (this.shapeType==="I"||this.shapeType==="S"||this.shapeType==="Z"){
             this.rotationIndex = 1-this.rotationIndex;
             return new RotatingShape(this.rotations[this.shapeType][Number(this.rotationIndex)], this.shape_type, this.rotationIndex)
@@ -100,7 +96,6 @@ export class RotatingShape {
             if (this.rotationIndex<0){
                 this.rotationIndex=7;
             }
-            console.log(this.rotationIndex, this.rotations[this.shapeType][this.rotationIndex])
             return new RotatingShape(this.rotations[this.shapeType][rotationIndex], this.shape_type, rotationIndex)
         }
 

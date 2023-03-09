@@ -94,8 +94,27 @@ export class Board {
         this.tickDown()
       }
     }
+    if(this.blockFalling===false){
+      console.log("block stopped")
+      this.clearLine()
+    }
+
   }
 
+  clearLine() {
+    for (let i = 0; i < this.width; i++) {
+      if (this.board[this.height-1][i] === '.') {
+        console.log(this.board.toString());
+        
+        console.log("no line to clear")
+        return;
+      }
+    }
+    this.board.pop()
+    this.board.unshift(Array(this.width).fill('.'))
+    console.log(this.board)
+
+  }
   tickLeft() {
     let board = JSON.parse(JSON.stringify(this.board))
     let fallingBlockLocations = JSON.parse(JSON.stringify(this.fallingBlockLocations))
@@ -228,14 +247,9 @@ export class Board {
   }
 
   rotateRight() {
-  console.log("HEP",this.fallingBlockObject.rotationIndex, this.fallingBlockObject.toString())
-  console.log(this.fallingBlockObject.rotationIndex, "r0\n", this.toString())
   this.rotateLeft()
-  console.log(this.fallingBlockObject.rotationIndex, "r1\n", this.toString())
   this.rotateLeft()
-  console.log(this.fallingBlockObject.rotationIndex, "r2\n", this.toString())
   this.rotateLeft()
-  console.log(this.fallingBlockObject.rotationIndex, "r3\n", this.toString())
   return;
   
   }

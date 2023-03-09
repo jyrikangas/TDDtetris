@@ -32,7 +32,6 @@ describe("Falling T-shape tetrominoes", () => {
     it("can be rotated right", () => {
         board.drop(Tetromino.T_SHAPE);
 
-        console.log("function called")
         board.rotateRight();
         expect(board.toString()).to.equal(
 `....T.....
