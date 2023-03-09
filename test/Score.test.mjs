@@ -24,13 +24,16 @@ describe("score is", () => {
         board.moveLeft();
         
     }
+    function dropHorizontalIpiece(board) {
+        board.drop(Tetromino.I_SHAPE);
+        fallToBottom(board);
+    }
     let board;
     let score;
     beforeEach(() => {
         score= new Score();
         board = new Board(5, 8, score);
-        board.drop(Tetromino.I_SHAPE);
-        fallToBottom(board);
+        dropHorizontalIpiece(board);
     });
     it("0 at the beginning of the game", () => {
         expect(score.score).to.equal(0);
@@ -42,5 +45,50 @@ describe("score is", () => {
 
         expect(score.score).to.equal(40);
     });
+
+    it ("increased by 100 when a double line is cleared", () => {
+        dropHorizontalIpiece(board);
+        dropLineClearer(board);
+        fallToBottom(board);
+        
+        expect(score.score).to.equal(100);
+    });
     
+    it ("increased by 300 when a triple line is cleared", () => {
+        dropHorizontalIpiece(board);
+        dropHorizontalIpiece(board);
+        dropLineClearer(board);
+        fallToBottom(board);
+        
+        expect(score.score).to.equal(300);
+    });
+
+    it ("increased by 1200 when a tetris is cleared", () => {
+        dropHorizontalIpiece(board);
+        dropHorizontalIpiece(board);
+        dropHorizontalIpiece(board);
+        dropLineClearer(board);
+        fallToBottom(board);
+        
+        expect(score.score).to.equal(1200);
+    })
+
+    it ("increased by 80 when a line is cleared on level 2", () => {
+        score.level = 2;
+        dropLineClearer(board);
+        fallToBottom(board);
+
+        expect(score.score).to.equal(80);
+    });
+
+    it ("increased by 3600 when a tetris is cleared on level 3", () => {
+        score.level = 3;
+        dropHorizontalIpiece(board);
+        dropHorizontalIpiece(board);
+        dropHorizontalIpiece(board);
+        dropLineClearer(board);
+        fallToBottom(board);
+        
+        expect(score.score).to.equal(3600);
+    })
 });
