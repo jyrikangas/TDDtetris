@@ -95,25 +95,21 @@ export class Board {
       }
     }
     if(this.blockFalling===false){
-      console.log("block stopped")
       this.clearLine()
     }
 
   }
 
   clearLine() {
-    for (let i = 0; i < this.width; i++) {
-      if (this.board[this.height-1][i] === '.') {
-        console.log(this.board.toString());
-        
-        console.log("no line to clear")
-        return;
+    while(true){
+      for (let i = 0; i < this.width; i++) {
+        if (this.board[this.height-1][i] === '.') {
+          return;
+        }
       }
+      this.board.pop()
+      this.board.unshift(Array(this.width).fill('.'))
     }
-    this.board.pop()
-    this.board.unshift(Array(this.width).fill('.'))
-    console.log(this.board)
-
   }
   tickLeft() {
     let board = JSON.parse(JSON.stringify(this.board))

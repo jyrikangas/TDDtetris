@@ -3,18 +3,23 @@ import { expect } from "chai";
 import { Tetromino } from "../src/Tetromino.mjs";
 import { Board } from "../src/Board.mjs";
 
-describe("when the bottom line is filled", () => {
+describe("lines are cleared", () => {
 
-    it("it is cleared", () => {
+    function fallToBottom(board){
+        board.tick();
+        board.tick();
+        board.tick();
+        board.tick();
+        board.tick();
+        board.tick();
+        board.tick();
+        board.tick();
+    };
+    it("if the bottom line is filled", () => {
 
         let board = new Board(5, 6);
         board.drop(Tetromino.I_SHAPE);
-        board.tick();
-        board.tick();
-        board.tick();
-        board.tick();
-        board.tick();
-        board.tick();
+        fallToBottom(board)
 
 
         board.drop(Tetromino.I_SHAPE);
@@ -28,7 +33,6 @@ describe("when the bottom line is filled", () => {
         board.tick();
         board.tick();
         board.tick();
-        console.log('line clear test');
         
         expect(board.toString()).to.equal(
 `.....
@@ -39,5 +43,111 @@ I....
 I....
 `
         );
-    })
+    });
+    it("if the bottom 2 lines are filled", () => {
+            
+            let board = new Board(5, 6);
+            board.drop(Tetromino.I_SHAPE);
+            fallToBottom(board)
+
+
+            board.drop(Tetromino.I_SHAPE);
+            fallToBottom(board)
+
+            board.drop(Tetromino.I_SHAPE);
+            board.rotateRight();
+            board.moveLeft();
+            board.tick();
+            board.moveLeft();
+            board.tick();
+            board.moveLeft();
+            board.tick();
+            board.tick();
+            board.tick();
+            board.tick();
+            expect(board.toString()).to.equal(
+`.....
+.....
+.....
+.....
+I....
+I....
+`);
+    });
+
+
+    it("if the bottom 3 lines are filled", () => {
+        let board = new Board(5, 7);
+        board.drop(Tetromino.I_SHAPE);
+        fallToBottom(board)
+
+        board.drop(Tetromino.I_SHAPE);
+        fallToBottom(board)
+
+        board.drop(Tetromino.I_SHAPE);
+        fallToBottom(board)
+        
+        board.drop(Tetromino.I_SHAPE);
+        board.rotateRight();
+        board.moveLeft();
+        board.tick();
+        board.moveLeft();
+        board.tick();
+        board.moveLeft();
+        board.tick();
+        board.tick();
+        board.tick();
+        board.tick();
+        board.tick();
+        expect(board.toString()).to.equal(
+`.....
+.....
+.....
+.....
+.....
+.....
+I....
+`);
+        });
+
+    it("if the bottom 4 lines are filled", () => {
+        let board = new Board(5, 8);
+        board.drop(Tetromino.I_SHAPE);
+        fallToBottom(board)
+
+        board.drop(Tetromino.I_SHAPE);
+        fallToBottom(board)
+
+        board.drop(Tetromino.I_SHAPE);
+        fallToBottom(board)
+
+        board.drop(Tetromino.I_SHAPE);
+        fallToBottom(board)
+        
+        board.drop(Tetromino.I_SHAPE);
+        board.rotateRight();
+        board.moveLeft();
+        board.tick();
+        board.moveLeft();
+        board.tick();
+        board.moveLeft();
+        board.tick();
+        board.tick();
+        board.tick();
+        board.tick();
+        board.tick();
+        board.tick();
+        expect(board.toString()).to.equal(
+`.....
+.....
+.....
+.....
+.....
+.....
+.....
+.....
+`);
+        });
+
 })
+
