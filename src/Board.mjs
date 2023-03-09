@@ -1,3 +1,4 @@
+import { Score } from "./Score.mjs";
 
 export class Board {
   width;
@@ -13,15 +14,17 @@ export class Board {
   fallingBlockObject;
   goLeft;
   goRight;
+  scoreTracker
 
-  constructor(width, height) {
+  constructor(width, height, score) {
     this.width = Number(width);
     this.height = Number(height);
     this.middle = (this.width/2).toFixed()-1
     this.board = Array(height).fill().map(()=>Array(width).fill('.'))
     this.blockFalling = false;
     this.ticksLeftForBlock = 0;
-
+    this.scoreTracker = score? score : new Score();
+    
   }
 
   toString() {
@@ -101,14 +104,17 @@ export class Board {
   }
 
   clearLine() {
+    let linesCleared = 0;
     while(true){
       for (let i = 0; i < this.width; i++) {
         if (this.board[this.height-1][i] === '.') {
+          this.scoreTracker.incrementScore(linesCleared)
           return;
         }
       }
       this.board.pop()
       this.board.unshift(Array(this.width).fill('.'))
+      linesCleared++
     }
   }
   tickLeft() {

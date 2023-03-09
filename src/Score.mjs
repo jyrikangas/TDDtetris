@@ -7,5 +7,10 @@ export class Score {
     constructor() {
         this.score = 0;
     }
-    
+
+    incrementScore(linesCleared) {
+
+        this.score += linesCleared * 40;
+        
+    }
 }
