@@ -4,4 +4,7 @@ export class Block {
   constructor(color) {
     this.color = color;
   }
+  toString() {
+    return `${this.color}\n`;
+  }
 }
